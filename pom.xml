@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>epsg</groupId>
+    <artifactId>epsg</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <description>
+        Generate static java classes from an EPSG database.
+    </description>
+
+    <properties>
+        <derby.version>10.8.2.2</derby.version>
+        <sis.version>0.4-jdk7-SNAPSHOT</sis.version>
+        <geotoolkit.version>4.x-SNAPSHOT</geotoolkit.version>
+        <geoapi.version>3.1-SNAPSHOT</geoapi.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Import all dependency management used by the GeAPI project. -->
+            <dependency>
+              <groupId>org.opengis</groupId>
+              <artifactId>geoapi-parent</artifactId>
+              <version>${geoapi.version}</version>
+              <type>pom</type>
+              <scope>import</scope>
+            </dependency>
+            <dependency>
+              <groupId>org.opengis</groupId>
+              <artifactId>geoapi-pending</artifactId>
+              <version>${geoapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotoolkit</groupId>
+                <artifactId>geotk-referencing</artifactId>
+                <version>${geotoolkit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sis.core</groupId>
+                <artifactId>sis-utility</artifactId>
+                <version>${sis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotoolkit</groupId>
+                <artifactId>geotk-widgets-swing</artifactId>
+                <version>${geotoolkit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geotoolkit</groupId>
+                <artifactId>geotk-render2d</artifactId>
+                <version>${geotoolkit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.media</groupId>
+                <artifactId>jai_codec</artifactId>
+                <version>1.1.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+        <dependency>
+          <groupId>org.opengis</groupId>
+          <artifactId>geoapi-pending</artifactId>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>javax.measure</groupId>
+            <artifactId>jsr-275</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.apache.sis.core</groupId>
+            <artifactId>sis-utility</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotoolkit</groupId>
+            <artifactId>geotk-referencing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotoolkit</groupId>
+            <artifactId>geotk-widgets-swing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotoolkit</groupId>
+            <artifactId>geotk-render2d</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.media</groupId>
+            <artifactId>jai_codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- =======================================================
+                     Compile Java source files
+
+                 Note: experimentation suggests that <debug>false</..>
+                 is equivalent to <compilerArgument>-g:source,lines</..>
+                 which is what we actually want.
+                 ======================================================= -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>       <!-- The -source argument for the Java compiler.   -->
+                    <target>1.8</target>       <!-- The -target argument for the Java compiler.   -->
+                    <debug>true</debug>       <!-- Whether to include debugging information.     -->
+                    <optimize>true</optimize>  <!-- Whether to optimize the compiled code.        -->
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <maxmem>1G</maxmem>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+      <repository>
+        <id>geotoolkit.org</id>
+        <name>Geotoolkit.org repository</name>
+        <url>http://maven.geotoolkit.org</url>
+      </repository>
+    </repositories>
+
+    <pluginRepositories>
+      <pluginRepository>
+        <id>geotoolkit.org</id>
+        <name>Geotoolkit.org repository</name>
+        <url>http://maven.geotoolkit.org</url>
+      </pluginRepository>
+    </pluginRepositories>
+
+    <modules>
+        <module>generator</module>
+    </modules>
+
+</project>
