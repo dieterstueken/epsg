@@ -19,4 +19,17 @@
         Generate in memory epsg database.
     </description>
 
+  <dependencies>
+    <!--
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>com.sun.codemodel</groupId>
+      <artifactId>codemodel</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>
