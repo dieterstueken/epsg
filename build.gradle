@@ -1,0 +1,59 @@
+apply from: "gradle/dependencies.gradle"
+
+apply plugin: 'idea'
+
+allprojects {
+    group = 'de.conterra.rasterplugin'
+    version = '2.15.0'
+}
+
+dependencies {
+}
+
+idea {
+    project {
+        jdkName = '11'
+        languageLevel = '11'
+        vcs = 'Git'
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    idea {
+        module {
+            outputDir file('build/idea/main')
+            testOutputDir file('build/idea/test')
+        }
+    }
+    
+    repositories {
+        mavenLocal()
+
+        maven { url = 'https://repo.osgeo.org/repository/release/' }
+        maven { url = 'https://repo.osgeo.org/repository/snapshot/' }
+        maven { url = 'https://maven.geo-solutions.it/' }
+
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation "junit:junit:4.11"
+    }
+
+    configurations.compile {
+        //exclude group: 'commons-beanutils', module: 'commons-beanutils'
+        //resolutionStrategy {
+        //    force 'commons-beanutils:commons-beanutils:1.9.2:'
+        //}
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_11;
+    targetCompatibility = JavaVersion.VERSION_11;
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}

@@ -1,0 +1,14 @@
+ext {
+    vers = [
+            gs         : '2.17.1',
+            gt         : '23.0',
+            guava      : '29-jre',
+            jetty      : '9.4.30.v20200611',
+            jaxb       : '2.3.2',
+            log4j      : '2.12.1'
+    ]
+
+    libs = [
+            guava : "com.google.guava:guava:$vers.guava",
+    ]
+}
