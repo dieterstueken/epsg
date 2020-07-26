@@ -9,29 +9,29 @@ import java.util.*;
  * modified by: $
  * modified on: $
  */
-public class OrderedList<T extends Indexed> extends AbstractList<T> implements RandomAccess {
+public class Items<T extends Indexed> extends AbstractSet<T> implements RandomAccess {
 
     static final Comparator<Indexed> INDEX = Comparator.comparingInt(Indexed::getCode);
 
     final List<T> items;
 
-    public OrderedList() {
+    public Items() {
         items = new ArrayList<>();
     }
 
-    public OrderedList(Collection<T> items) {
+    public Items(Collection<T> items) {
         this.items = new ArrayList<>(items.size());
         addAll(items);
-    }
-
-    @Override
-    public T get(int index) {
-        return items.get(index);
     }
 
     public T tail() {
         int size = items.size();
         return size==0 ? null : items.get(size-1);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return items.iterator();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class OrderedList<T extends Indexed> extends AbstractList<T> implements R
 
     public T find(int code) {
         int index = indexOf(code);
-        return code>0 ? items.get(index) : null;
+        return index<0 ? null : items.get(index);
     }
 
     public int indexOf(int code) {

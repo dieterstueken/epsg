@@ -1,11 +1,9 @@
 package org.geotools.referencing.factory.epsg.direct.generator.item;
 
 import org.geotools.referencing.factory.epsg.direct.item.Indexed;
-import org.geotools.referencing.factory.epsg.direct.item.OrderedList;
+import org.geotools.referencing.factory.epsg.direct.item.Items;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * version:     $
@@ -36,7 +34,7 @@ public class OrderedListTest {
 
         List<Indexed> root = List.of(idx(4), idx(2), idx(3));
 
-        OrderedList<Indexed> indexed = new OrderedList<>(root);
+        Items<Indexed> indexed = new Items<>(root);
 
         indexed.put(idx(1));
         indexed.put(idx(7));

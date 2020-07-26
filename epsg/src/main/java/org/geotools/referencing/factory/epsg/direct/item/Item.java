@@ -9,7 +9,7 @@ package org.geotools.referencing.factory.epsg.direct.item;
  */
 public class Item implements Indexed {
 
-    final Code code;
+    public final Code code;
 
     public Item(Code code) {
         this.code = code;
@@ -21,6 +21,6 @@ public class Item implements Indexed {
 
     @Override
     public int getCode() {
-        return code.getCode();
+        return code();
     }
 }

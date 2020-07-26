@@ -13,9 +13,9 @@ import java.io.Serializable;
  */
 public class Named implements Serializable {
 
-    final InternationalString name;
+    public final InternationalString name;
 
-    final InternationalString remarks;
+    public final InternationalString remarks;
 
     public Named(InternationalString name, InternationalString remarks) {
         this.name = name;

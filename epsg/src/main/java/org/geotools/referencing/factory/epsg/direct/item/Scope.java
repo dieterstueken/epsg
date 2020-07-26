@@ -3,16 +3,15 @@ package org.geotools.referencing.factory.epsg.direct.item;
 /**
  * version:     $Revision$
  * created by:  dst
- * created on:  30.10.2014 11:50
+ * created on:  30.10.2014 11:59
  * modified by: $Author$
  * modified on: $Date$
  */
-public class Alias extends Item {
+public class Scope extends Item {
 
-    final Scope scope;
+    //final NameSpace scope;
 
-    public Alias(Code code, Scope scope) {
+    public Scope(Code code) {
         super(code);
-        this.scope = scope;
     }
 }

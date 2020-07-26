@@ -15,6 +15,12 @@ import java.util.Objects;
  */
 public class Text implements CharSequence, InternationalString, Serializable {
 
+    public static final Text EMPTY = new Text("");
+
+    static Text text(String text) {
+        return text==null || text.isBlank() ? EMPTY : new Text(text);
+    }
+
     final String text;
 
     public Text(String text) {

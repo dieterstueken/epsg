@@ -6,11 +6,11 @@ import java.sql.SQLException;
 /**
  * version:     $
  * created by:  d.stueken
- * created on:  23.07.2020 21:18
+ * created on:  25.07.2020 16:39
  * modified by: $
  * modified on: $
  */
-public interface ResultOf<R> {
+public interface Processor {
 
-    R get(ResultSet rs) throws SQLException;
+    void process(ResultSet rs) throws SQLException;
 }
