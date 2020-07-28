@@ -1,5 +1,8 @@
 package org.geotools.referencing.factory.epsg.direct.item;
 
+import org.geotools.referencing.factory.epsg.direct.item.code.Code;
+import org.geotools.referencing.factory.epsg.direct.item.code.Indexed;
+
 /**
  * version:     $
  * created by:  d.stueken
@@ -15,12 +18,13 @@ public class Item implements Indexed {
         this.code = code;
     }
 
-    public int code() {
+    @Override
+    public int getCode() {
         return Math.abs(code.code);
     }
 
     @Override
-    public int getCode() {
-        return code();
+    public String toString() {
+        return String.format("[%d] %s", getCode(), code.name);
     }
 }

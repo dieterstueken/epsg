@@ -1,9 +1,10 @@
 package org.geotools.referencing.factory.epsg.direct.generator.sql;
 
-import org.geotools.referencing.factory.epsg.direct.item.Code;
-import org.geotools.referencing.factory.epsg.direct.item.Indexed;
-import org.geotools.referencing.factory.epsg.direct.item.Items;
-import org.geotools.referencing.factory.epsg.direct.item.Text;
+import org.geotools.referencing.factory.epsg.direct.item.IndexedSet;
+import org.geotools.referencing.factory.epsg.direct.item.UoM;
+import org.geotools.referencing.factory.epsg.direct.item.code.Code;
+import org.geotools.referencing.factory.epsg.direct.item.code.Indexed;
+import org.geotools.referencing.factory.epsg.direct.item.code.Text;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -79,12 +80,12 @@ public class Reader implements AutoCloseable {
         }
     }
 
-    public <T extends Indexed> Items<T>
+    public <T extends Indexed> IndexedSet<T>
     read(Result<T> factory, String tableName, String... columns) throws SQLException {
         return read(tableName, factory, List.of(columns));
     }
 
-    public <T extends Indexed> Items<T>
+    public <T extends Indexed> IndexedSet<T>
     read(String tableName, Result<T> factory, List<String> columns) throws SQLException {
 
         StringBuilder query = new StringBuilder();
@@ -98,13 +99,13 @@ public class Reader implements AutoCloseable {
 
         query.append(" FROM ").append(tableName);
 
-        Items<T> items = new Items<T>();
+        IndexedSet<T> items = new IndexedSet<T>();
 
         try(Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query.toString())) {
             while(rs.next()) {
                 T item = factory.get(rs);
-                items.put(item);
+                items.add(item);
             }
         }
 
@@ -130,7 +131,7 @@ public class Reader implements AutoCloseable {
     }
 
 
-    public static void main(String ... args) throws SQLException {
+    public static void _main(String ... args) throws SQLException {
         try(var reader = open()) {
             reader.explain("ALIAS");
             reader.explain("NAMINGSYSTEM");
@@ -152,6 +153,28 @@ public class Reader implements AutoCloseable {
             reader.explain("COORDOPERATIONPARAMUSAGE");
             reader.explain("COORDOPERATIONPARAMVALUE");
             reader.explain("COORDOPERATIONPATH");
+        }
+    }
+
+
+    public static void main(String ... args) throws SQLException {
+
+        String url = System.getProperty("epsg.database.url");
+        try(Connection connection = DriverManager.getConnection(url)) {
+            var tables = new Ellipsoids(connection);
+            tables.load();
+
+            System.out.format("Scopes: %d\n", tables.scopes.size());
+            System.out.format("Areas:  %d\n", tables.areas.size());
+            System.out.format("Units:  %d\n", tables.units.size());
+            System.out.format("Ellps:  %d\n", tables.ellipsoids.size());
+            System.out.format("Primes: %d\n", tables.meridians.size());
+            System.out.format("Datums: %d\n", tables.datums.size());
+
+            for (UoM<?> unit : tables.units) {
+                System.out.format("%5d: %s     %s\n", unit.code.code, unit.code.name, unit.unit);
+            }
+
         }
     }
 }

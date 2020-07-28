@@ -1,7 +1,7 @@
 package org.geotools.referencing.factory.epsg.direct.generator.item;
 
-import org.geotools.referencing.factory.epsg.direct.item.Indexed;
-import org.geotools.referencing.factory.epsg.direct.item.Items;
+import org.geotools.referencing.factory.epsg.direct.item.IndexedSet;
+import org.geotools.referencing.factory.epsg.direct.item.code.Indexed;
 
 import java.util.List;
 
@@ -34,10 +34,10 @@ public class OrderedListTest {
 
         List<Indexed> root = List.of(idx(4), idx(2), idx(3));
 
-        Items<Indexed> indexed = new Items<>(root);
+        IndexedSet<Indexed> indexed = new IndexedSet<>(root);
 
-        indexed.put(idx(1));
-        indexed.put(idx(7));
-        indexed.put(idx(4));
+        indexed.add(idx(1));
+        indexed.add(idx(7));
+        indexed.add(idx(4));
     }
 }

@@ -1,6 +1,11 @@
-package org.geotools.referencing.factory.epsg.direct.item;
+package org.geotools.referencing.factory.epsg.direct.item.code;
 
 import org.opengis.util.InternationalString;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static org.geotools.text.Text.text;
 
@@ -14,6 +19,8 @@ import static org.geotools.text.Text.text;
 public class Code extends Named implements Indexed {
 
     public final int code;
+
+    Collection<Alias> aliases = null;
 
     public Code(int code, InternationalString name, InternationalString remarks) {
         super(name, remarks);
@@ -41,5 +48,24 @@ public class Code extends Named implements Indexed {
     @Override
     public String toString() {
         return Integer.toString(code);
+    }
+
+    public Collection<Alias> getAliases() {
+        return aliases==null ? Collections.emptySet() : aliases;
+    }
+
+    public void aliased(Alias alias) {
+        if(aliases==null)
+            aliases = List.of(alias);
+        else {
+            if(aliases.size()==1) {
+                List<Alias> tmp = new ArrayList<>(2);
+                tmp.addAll(aliases);
+                this.aliases = tmp;
+                aliases.add(alias);
+            } else {
+                aliases.add(alias);
+            }
+        }
     }
 }

@@ -1,9 +1,10 @@
 package org.geotools.referencing.factory.epsg.direct.generator.sql;
 
-import org.geotools.referencing.factory.epsg.direct.item.Code;
 import org.geotools.referencing.factory.epsg.direct.item.Items;
 import org.geotools.referencing.factory.epsg.direct.item.UoM;
+import org.geotools.referencing.factory.epsg.direct.item.code.Code;
 import si.uom.quantity.AngularSpeed;
+import tec.uom.se.unit.ProductUnit;
 
 import javax.measure.Quantity;
 import javax.measure.Unit;
@@ -13,10 +14,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static si.uom.SI.RADIAN_PER_SECOND;
-import static systems.uom.ucum.UCUM.*;
-import static systems.uom.unicode.CLDR.METER;
-import static systems.uom.unicode.CLDR.METER_PER_SECOND;
+import static si.uom.SI.SECOND;
+import static systems.uom.common.USCustomary.DEGREE_ANGLE;
+import static systems.uom.common.USCustomary.METER;
 import static tec.uom.se.AbstractUnit.ONE;
+import static tec.uom.se.unit.MetricPrefix.MILLI;
+import static tec.uom.se.unit.Units.*;
+
+//import static systems.uom.unicode.CLDR.METER_PER_SECOND;
 
 /**
  * version:     $
@@ -29,26 +34,32 @@ public class UoMs extends Aliases {
 
     public static final Items<UoM<?>> BASE_UNITS = new Items<>();
 
-
     static <Q extends Quantity<Q>> UoM<Q> uom(int code, Unit<Q> unit, String name) {
         var uom = new UoM<>(Code.code(code, name), unit);
-        BASE_UNITS.put(uom);
+        if(!BASE_UNITS.add(uom))
+            throw new IllegalArgumentException("duplicate entry");
         return uom;
     }
 
-    static final Unit<Angle> DM = DEGREE;
-    static final Unit<Angle> DMS = DEGREE;
-    static final Unit<Angle> DMS_SCALED = DEGREE;
-    static final Unit<Angle> DREP = DEGREE;
+    static final Unit<Angle> DM = DEGREE_ANGLE;
+    static final Unit<Angle> DMS = DEGREE_ANGLE;
+    static final Unit<Angle> DMS_SCALED = DEGREE_ANGLE;
+    static final Unit<Angle> DREP = DEGREE_ANGLE;
 
-    public static final UoM<Dimensionless> U_1024 = uom(1026, ONE, "metre");
-    public static final UoM<Speed> U_1026 = uom(1026, METER_PER_SECOND, "metre");
+    static final Unit<Time> TROPICAL_YEAR = YEAR; //SECOND.multiply(31556925.445);
+
+    public static final UoM<Speed> U_1026 = uom(1026, METRE_PER_SECOND, "metre");
+
+    public static final UoM<Time> U_1029 = uom(1029, TROPICAL_YEAR, "year");
+    public static final UoM<Speed> U_1027 = uom(1027, new ProductUnit<Speed>(MILLI(METER).divide(TROPICAL_YEAR)), "millimetres per year");
+
+
     public static final UoM<AngularSpeed> U_1035 = uom(1035, RADIAN_PER_SECOND, "radian per second");
     public static final UoM<Frequency> U_1036 = uom(1036, HERTZ, "unity per second");
     public static final UoM<Time> U_1040 = uom(1040, SECOND, "second");
     public static final UoM<Length> U_9001 = uom(9001, METER, "metre");
     public static final UoM<Angle> U_9101 = uom(9101, RADIAN, "radian");
-    public static final UoM<Angle> U_9102 = uom(9102, DEGREE, "degree");
+    public static final UoM<Angle> U_9102 = uom(9102, DEGREE_ANGLE, "degree");
     public static final UoM<Dimensionless> U_9201 = uom(9201, ONE, "unity");
 
     public static final UoM<Angle> U_9107 = uom(9107, DREP, "degree minute second");
@@ -72,6 +83,8 @@ public class UoMs extends Aliases {
     UoMs(Connection conn) throws SQLException {
         super(conn);
 
+        YEAR.toString();
+
         units.addAll(BASE_UNITS);
     }
 
@@ -82,11 +95,13 @@ public class UoMs extends Aliases {
         process(this::addUnit, "select UOM_CODE, UNIT_OF_MEAS_NAME, REMARKS, DEPRECATED, " +
                 "TARGET_UOM_CODE, FACTOR_B, FACTOR_C " +
                 "from EPSG_UNITOFMEASURE");
+
+        aliases("epsg_unitofmeasure", units::aliased);
     }
 
     void addUnit(ResultSet rs) throws SQLException {
         var unit = unit(rs);
-        units.put(unit);
+        units.add(unit);
     }
 
     UoM<?> unit(ResultSet rs) throws SQLException {
@@ -106,6 +121,7 @@ public class UoMs extends Aliases {
         double b = rs.getDouble(7);
 
         Unit<?> u = base.unit.multiply(a).divide(b);
+        String name = u.toString();
         return new UoM<>(code, u);
     }
 }

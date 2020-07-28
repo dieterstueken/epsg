@@ -1,5 +1,7 @@
 package org.geotools.referencing.factory.epsg.direct.item;
 
+import org.geotools.referencing.factory.epsg.direct.item.code.Code;
+
 import javax.measure.Quantity;
 import javax.measure.Unit;
 
@@ -30,5 +32,10 @@ public class UoM<Q extends Quantity<Q>> extends Item {
 
     public Value<Q> of(Number value) {
         return new Value<Q>(this, value);
+    }
+
+    public <T extends Quantity<T>> UoM<T> asType(Class<T> type) {
+        unit.asType(type);
+        return (UoM<T>) this;
     }
 }

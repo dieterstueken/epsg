@@ -1,5 +1,6 @@
 package org.geotools.referencing.factory.epsg.direct.item;
 
+import org.geotools.referencing.factory.epsg.direct.item.code.Code;
 import org.opengis.metadata.extent.GeographicBoundingBox;
 import org.opengis.util.InternationalString;
 

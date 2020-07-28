@@ -1,4 +1,4 @@
-package org.geotools.referencing.factory.epsg.direct.item;
+package org.geotools.referencing.factory.epsg.direct.item.code;
 
 /**
  * version:     $

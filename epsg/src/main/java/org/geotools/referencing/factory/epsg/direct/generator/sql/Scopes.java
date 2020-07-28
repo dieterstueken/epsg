@@ -1,7 +1,7 @@
 package org.geotools.referencing.factory.epsg.direct.generator.sql;
 
 import org.geotools.referencing.factory.epsg.direct.item.Items;
-import org.geotools.referencing.factory.epsg.direct.item.Scope;
+import org.geotools.referencing.factory.epsg.direct.item.code.Scope;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,7 +30,7 @@ public class Scopes extends Reader {
 
     void addScope(ResultSet rs) throws SQLException {
         var scope = new Scope(codep(rs));
-        scopes.put(scope);
+        scopes.add(scope);
     }
 
 }

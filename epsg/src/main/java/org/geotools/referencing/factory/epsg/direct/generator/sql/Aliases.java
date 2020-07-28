@@ -1,7 +1,7 @@
 package org.geotools.referencing.factory.epsg.direct.generator.sql;
 
-import org.geotools.referencing.factory.epsg.direct.item.Alias;
-import org.geotools.referencing.factory.epsg.direct.item.Scope;
+import org.geotools.referencing.factory.epsg.direct.item.code.Alias;
+import org.geotools.referencing.factory.epsg.direct.item.code.Scope;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
