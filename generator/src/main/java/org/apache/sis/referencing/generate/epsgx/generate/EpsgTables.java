@@ -1,7 +1,7 @@
 package org.apache.sis.referencing.generate.epsgx.generate;
 
-import org.apache.sis.util.logging.Logging;
 import org.apache.sis.referencing.generate.epsgx.load.*;
+import org.apache.sis.util.logging.Logging;
 
 import java.io.*;
 import java.sql.Connection;
@@ -204,7 +204,7 @@ public class EpsgTables implements Serializable {
         List<V> values = table.load(connection);
         NavigableMap<Integer, V> map = indexed(values);
 
-        aliased.put(table.table, map);
+        aliased.put(table.name, map);
         return map;
     }
 
@@ -222,7 +222,7 @@ public class EpsgTables implements Serializable {
             }
         }
 
-        aliased.put(table.table, map);
+        aliased.put(table.name, map);
         return map;
     }
 

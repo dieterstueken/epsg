@@ -1,5 +1,7 @@
 package org.apache.sis.referencing.generate.epsgx.load;
 
+import java.sql.Date;
+
 /**
  * version:     $Revision$
  * created by:  dst
@@ -13,7 +15,7 @@ public class Datum extends Bound {
     public String datum_name; //(80) NOT NULL,
     public String datum_type; //(24) NOT NULL,
     public String origin_description; //(254),
-    public Short realization_epoch; //,
+    public Date realization_epoch; //,
     public Integer ellipsoid_code; //,
     public Integer prime_meridian_code; //,
     public String datum_scope; //(254) NOT NULL,

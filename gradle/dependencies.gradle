@@ -1,9 +1,11 @@
 ext {
     vers = [
-            log4j      : '2.12.1'
+            log4j      : '+',
+            jaxb       : '2.3.2'
     ]
 
     libs = [
             guava : "com.google.guava:guava:$vers.guava",
+            jaxb_runtime : "org.glassfish.jaxb:jaxb-runtime:$vers.jaxb",
     ]
 }

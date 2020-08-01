@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Operate" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="org.geotoolkit.demo.referencing.epsgx.generate.Operate" />
-    <module name="epsgx" />
+    <option name="MAIN_CLASS_NAME" value="org.apache.sis.referencing.generate.epsgx.generate.Operate" />
+    <module name="gt-epsg.generator.main" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.geotoolkit.demo.referencing.epsgx.generate.*" />

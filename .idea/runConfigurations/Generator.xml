@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Generator" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="org.geotoolkit.demo.referencing.epsgx.generate.Generator" />
-    <module name="epsgx" />
-    <option name="VM_PARAMETERS" value="-Depsg.output.package=&quot;org.geotoolkit.demo.referencing.epsg&quot; -Depsg.output.dir=&quot;generated/src/main/java/org/geotoolkit/demo/referencing/epsg&quot; -Depsg.database.url=&quot;jdbc:derby:$USER_HOME$/AppData/Roaming/Geotoolkit.org/EPSG/7.09;create=false&quot;" />
+    <option name="MAIN_CLASS_NAME" value="org.apache.sis.referencing.generate.epsgx.generate.Generator" />
+    <module name="gt-epsg.generator.main" />
+    <option name="VM_PARAMETERS" value="-Depsg.output.package=&quot;org.apache.sis.referencing.epsg.generated&quot; -Depsg.output.dir=&quot;generated/src/main/generated/org/apache/sis/referencing/epsg/genertated&quot; -Depsg.database.url=&quot;jdbc:derby:C:\Users\d.stueken\AppData\Roaming\Databases\SpatialMetadata;create=false&quot;" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.geotoolkit.demo.referencing.epsgx.generate.*" />

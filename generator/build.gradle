@@ -4,5 +4,8 @@ dependencies {
     implementation 'com.google.guava:guava:+'
     implementation 'com.sun.codemodel:codemodel:+'
     implementation 'org.apache.sis.core:sis-referencing:1.0'
-    implementation 'org.apache.derby:derby:+'
+    implementation 'org.apache.sis.non-free:sis-epsg:1.0'
+    implementation 'org.apache.derby:derby:10.14.2.0'
+
+    implementation libs.jaxb_runtime
 }

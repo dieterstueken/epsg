@@ -5,3 +5,4 @@
 rootProject.name = 'gt-epsg'
 
 include(':generator')
+include(':generated')
