@@ -1,0 +1,8 @@
+apply plugin: 'java'
+
+dependencies {
+    implementation 'com.google.guava:guava:+'
+    implementation 'com.sun.codemodel:codemodel:+'
+    implementation 'org.apache.sis.core:sis-referencing:1.0'
+    implementation 'org.apache.derby:derby:+'
+}

@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AreasNamesISO" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.geotoolkit.demo.referencing.epsgx.generate.AreasISO" />
+    <module name="epsgx" />
+    <option name="VM_PARAMETERS" value="-Depsg.database.url=&quot;jdbc:derby:$USER_HOME$/AppData/Roaming/Geotoolkit.org/EPSG/7.09;create=false&quot;" />
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Debug" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

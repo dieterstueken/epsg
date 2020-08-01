@@ -1,0 +1,9 @@
+ext {
+    vers = [
+            log4j      : '2.12.1'
+    ]
+
+    libs = [
+            guava : "com.google.guava:guava:$vers.guava",
+    ]
+}

@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CoordSys" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.geotoolkit.demo.referencing.fransy.CoordSys" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.geotoolkit.demo.referencing.fransy.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="true" />
+    </RunnerSettings>
+    <ConfigurationWrapper RunnerId="Debug" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
