@@ -38,6 +38,7 @@ public class Generator implements ItemResolver {
     public static void main(String ... args) throws SQLException, IOException {
 
         File root = new File(System.getProperty("epsg.output.dir"));
+        root.mkdirs();
         if(!root.isDirectory())
             throw new RuntimeException("invalid epsg.output.dir");
 
