@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="AreaCodes" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="org.apache.sis.referencing.generate.epsgx.stat.AreaCodes" />
+    <option name="MAIN_CLASS_NAME" value="org.apache.sis.referencing.generate.epsg.stat.AreaCodes" />
     <module name="gt-epsg.generator.main" />
     <option name="VM_PARAMETERS" value="-Depsg.database.url=&quot;jdbc:derby:$USER_HOME$/AppData/Roaming/Geotoolkit.org/EPSG/7.09;create=false&quot;" />
     <extension name="coverage">

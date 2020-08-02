@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Generator" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="org.apache.sis.referencing.generate.epsgx.generate.Generator" />
+    <option name="MAIN_CLASS_NAME" value="org.apache.sis.referencing.generate.epsg.generate.Generator" />
     <module name="gt-epsg.generator.main" />
     <option name="VM_PARAMETERS" value="-Depsg.output.package=&quot;org.apache.sis.referencing.epsg&quot; -Depsg.output.dir=&quot;generated/src/main/generated/org/apache/sis/referencing/epsg&quot; -Depsg.database.url=&quot;jdbc:derby:Databases/SpatialMetadata;create=false&quot;" />
     <extension name="coverage">
