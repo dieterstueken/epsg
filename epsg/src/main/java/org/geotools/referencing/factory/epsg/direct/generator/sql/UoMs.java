@@ -4,7 +4,8 @@ import org.geotools.referencing.factory.epsg.direct.item.Items;
 import org.geotools.referencing.factory.epsg.direct.item.UoM;
 import org.geotools.referencing.factory.epsg.direct.item.code.Code;
 import si.uom.quantity.AngularSpeed;
-import tec.uom.se.unit.ProductUnit;
+import tech.units.indriya.unit.ProductUnit;
+import tech.units.indriya.unit.Units;
 
 import javax.measure.Quantity;
 import javax.measure.Unit;
@@ -13,13 +14,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static javax.measure.MetricPrefix.MILLI;
+import static org.geotools.measure.Units.ONE;
+import static org.geotools.measure.Units.RADIAN;
+import static org.geotools.measure.Units.YEAR;
 import static si.uom.SI.RADIAN_PER_SECOND;
 import static si.uom.SI.SECOND;
 import static systems.uom.common.USCustomary.DEGREE_ANGLE;
 import static systems.uom.common.USCustomary.METER;
-import static tec.uom.se.AbstractUnit.ONE;
-import static tec.uom.se.unit.MetricPrefix.MILLI;
-import static tec.uom.se.unit.Units.*;
+import static tech.units.indriya.unit.Units.HERTZ;
 
 //import static systems.uom.unicode.CLDR.METER_PER_SECOND;
 
@@ -48,7 +51,7 @@ public class UoMs extends Aliases {
 
     static final Unit<Time> TROPICAL_YEAR = YEAR; //SECOND.multiply(31556925.445);
 
-    public static final UoM<Speed> U_1026 = uom(1026, METRE_PER_SECOND, "metre");
+    public static final UoM<Speed> U_1026 = uom(1026, Units.METRE_PER_SECOND, "metre");
 
     public static final UoM<Time> U_1029 = uom(1029, TROPICAL_YEAR, "year");
     public static final UoM<Speed> U_1027 = uom(1027, new ProductUnit<Speed>(MILLI(METER).divide(TROPICAL_YEAR)), "millimetres per year");
