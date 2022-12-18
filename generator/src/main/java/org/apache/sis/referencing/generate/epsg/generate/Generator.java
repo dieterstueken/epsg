@@ -1,11 +1,14 @@
 package org.apache.sis.referencing.generate.epsg.generate;
 
 import org.apache.sis.referencing.generate.epsg.load.*;
+import org.apache.sis.util.logging.Logging;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * version:     $Revision$
@@ -15,6 +18,9 @@ import java.sql.SQLException;
  * modified on: $Date$
  */
 public class Generator implements ItemResolver {
+
+    protected static final Logger LOGGER = Logging.getLogger(Generator.class.getName());
+    protected static final Level LEVEL = Level.INFO;
 
     final EpsgTables tables;
 
@@ -52,12 +58,13 @@ public class Generator implements ItemResolver {
     }
 
     public void run() throws IOException {
-
+        
         try(OutputClass out = new OutputClass(generated, "Scopes","extends Root")) {
+            LOGGER.log(LEVEL, "Scopes");
 
             out.addImport("org.opengis.util.NameSpace");
             out.addImport("org.opengis.metadata.citation.Citation");
-            out.addImport("org.geotoolkit.metadata.iso.citation.Citations");
+            out.addImport("org.apache.sis.metadata.iso.citation.Citations");
             out.nl();
 
             out.addImport(root);
@@ -67,6 +74,7 @@ public class Generator implements ItemResolver {
         }
 
         try(OutputClass out = new OutputClass(generated, "CoordSystems")) {
+            LOGGER.log(LEVEL, "CoordSystems");
 
             out.addImport(root);
             out.addImportStatic(root, "Name.*");
@@ -81,6 +89,7 @@ public class Generator implements ItemResolver {
 
 
         try(OutputClass out = new OutputClass(generated, "Ellipsoids")) {
+            LOGGER.log(LEVEL, "Ellipsoids");
 
             out.addImport(root);
             out.addImportStatic(root, "Name.*");
@@ -91,6 +100,7 @@ public class Generator implements ItemResolver {
         }
 
         try(OutputClass out = new OutputClass(generated, "PrimeMeridians")) {
+            LOGGER.log(LEVEL, "PrimeMeridians");
 
             out.addImport(root);
             out.addImportStatic(root, "Name.*");
@@ -101,6 +111,7 @@ public class Generator implements ItemResolver {
         }
 
         try(OutputClass out = new OutputClass(generated, "Datums")) {
+            LOGGER.log(LEVEL, "Datums");
 
             out.addImport(root);
             out.addImportStatic(root, "Name.*");
@@ -113,6 +124,7 @@ public class Generator implements ItemResolver {
         }
 
         try(OutputClass out = new OutputClass(generated, "Parameters")) {
+            LOGGER.log(LEVEL, "Parameters");
 
             out.addImport(root);
             out.addImportStatic(root, "Parameter.*");
@@ -122,6 +134,7 @@ public class Generator implements ItemResolver {
         }
 
         try(OutputClass out = new OutputClass(generated, "Methods")) {
+            LOGGER.log(LEVEL, "Methods");
 
             out.addImport(root);
             out.addImportStatic(root, "Method.*");
@@ -132,14 +145,17 @@ public class Generator implements ItemResolver {
         }
 
         try(CodeList<Area> out = areas()) {
+            LOGGER.log(LEVEL, "Areas");
             out.dumpAll(tables.areas.values());
         }
 
         try(CodeList<CoordOp> out = operations()) {
+            LOGGER.log(LEVEL, "Operations");
             out.dumpAll(tables.coops.values());
         }
 
         try(CodeList<CoordRefSys> out = systems()) {
+            LOGGER.log(LEVEL, "Systems");
             out.dumpAll(tables.crsTable.values());
         }
     }

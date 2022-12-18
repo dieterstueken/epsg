@@ -37,13 +37,6 @@ subprojects {
         testImplementation "junit:junit:4.11"
     }
 
-    configurations.compile {
-        //exclude group: 'commons-beanutils', module: 'commons-beanutils'
-        //resolutionStrategy {
-        //    force 'commons-beanutils:commons-beanutils:1.9.2:'
-        //}
-    }
-
     sourceCompatibility = JavaVersion.VERSION_11;
     targetCompatibility = JavaVersion.VERSION_11;
 

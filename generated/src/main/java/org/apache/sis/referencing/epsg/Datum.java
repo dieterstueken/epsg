@@ -12,10 +12,10 @@ public class Datum extends Bound {
     final String type;
     final Ellipsoid ellipsoid;
     final PrimeMeridian primeMeridian;
-    final Short epoch;
+    final String epoch;
 
     private Datum(Integer key, Name name, String type,
-                  Area area, Short epoch,
+                  Area area, String epoch,
                   Ellipsoid ellipsoid, PrimeMeridian primeMeridian) {
         super(key, name, area);
 
@@ -26,22 +26,22 @@ public class Datum extends Bound {
     }
 
     static Datum datum(Integer key, Name name, String type,
-                       Area area, int epoch,
+                       Area area, String epoch,
                        Ellipsoid ellipsoid, PrimeMeridian primeMeridian) {
-        return new Datum(key, name, type, area, (short)epoch, ellipsoid, primeMeridian);
+        return new Datum(key, name, type, area, epoch, ellipsoid, primeMeridian);
     }
 
-    public static Datum geodetic(Integer key, Name name, Area area, int epoch,
+    public static Datum geodetic(Integer key, Name name, Area area, String epoch,
                           Ellipsoid ellipsoid, PrimeMeridian primeMeridian ) {
-        return datum(key, name, "geodetic", area, (short)epoch, ellipsoid, primeMeridian);
+        return datum(key, name, "geodetic", area, epoch, ellipsoid, primeMeridian);
     }
 
-    public static Datum vertical(Integer key, Name name, Area area, int epoch) {
-        return datum(key, name, "vertical", area, (short)epoch, null, null);
+    public static Datum vertical(Integer key, Name name, Area area, String epoch) {
+        return datum(key, name, "vertical", area, epoch, null, null);
     }
 
-    public static Datum engineering(Integer key, Name name, Area area, int epoch) {
-        return datum(key, name, "engineering", area, (short)epoch, null, null);
+    public static Datum engineering(Integer key, Name name, Area area, String epoch) {
+        return datum(key, name, "engineering", area, epoch, null, null);
     }
 
 }

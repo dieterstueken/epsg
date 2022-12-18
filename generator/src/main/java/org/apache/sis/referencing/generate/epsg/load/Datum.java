@@ -61,9 +61,9 @@ public class Datum extends Bound {
             out.nl().append(',');
 
             if(item.realization_epoch!=null)
-                out.append(item.realization_epoch.toString());
+                out.quote(item.realization_epoch.toString());
             else
-                out.append("0");
+                out.append("null");
 
             if("geodetic".equals(item.datum_type)) {
                 resolver.ellipsoid(item.ellipsoid_code, out);

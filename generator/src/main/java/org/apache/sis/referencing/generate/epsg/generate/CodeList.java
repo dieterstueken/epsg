@@ -5,8 +5,8 @@ import org.apache.sis.referencing.generate.epsg.load.ItemBuilder;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
 * Created by IntelliJ IDEA.
@@ -16,7 +16,7 @@ import java.util.Map;
 */
 abstract class CodeList<I extends Item> implements Closeable {
 
-    Map<Integer, ItemBuilder<I>> files = new HashMap<>();
+    Map<Integer, ItemBuilder<I>> files = new TreeMap<>();
 
     abstract ItemBuilder<I> open(int hash) throws IOException;
 
