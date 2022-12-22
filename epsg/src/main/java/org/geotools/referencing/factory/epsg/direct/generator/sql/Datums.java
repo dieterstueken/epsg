@@ -23,13 +23,13 @@ import java.sql.SQLException;
  * modified by: $
  * modified on: $
  */
-public class Ellipsoids extends Areas {
+public class Datums extends Areas {
 
     final Items<Ellipsoid> ellipsoids = new Items<>();
     final Items<PrimeMeridian> meridians = new Items<>();
     final Items<Datum> datums = new Items<>();
 
-    Ellipsoids(Connection conn) throws SQLException {
+    Datums(Connection conn) throws SQLException {
         super(conn);
     }
 
@@ -40,16 +40,21 @@ public class Ellipsoids extends Areas {
         process(this::addEllipsoid, "select ELLIPSOID_CODE, ELLIPSOID_NAME, REMARKS, DEPRECATED, " +
                 "SEMI_MAJOR_AXIS, UOM_CODE, INV_FLATTENING, SEMI_MINOR_AXIS, ELLIPSOID_SHAPE " +
                 "from EPSG_ELLIPSOID");
-        aliases("epsg_ellipsoid", ellipsoids::aliased);
 
         process(this::addMeridian, "select PRIME_MERIDIAN_CODE, PRIME_MERIDIAN_NAME, REMARKS, DEPRECATED, " +
                 "GREENWICH_LONGITUDE, UOM_CODE from EPSG_PRIMEMERIDIAN");
-        aliases("epsg_primemeridian", meridians::aliased);
 
         process(this::addDatum, "select DATUM_CODE, DATUM_NAME, REMARKS, DEPRECATED, AREA_OF_USE_CODE, " +
                 "DATUM_TYPE, ORIGIN_DESCRIPTION, REALIZATION_EPOCH, ELLIPSOID_CODE, PRIME_MERIDIAN_CODE, DATUM_SCOPE " +
                 "from EPSG_DATUM");
-        aliases("epsg_datum", datums::aliased);
+    }
+
+    protected void finish() throws SQLException {
+        super.finish();
+
+        aliases("EPSG_ELLIPSOID", ellipsoids::aliased);
+        aliases("EPSG_PRIMEMERIDIAN", meridians::aliased);
+        aliases("EPSG_DATUM", datums::aliased);
     }
 
     private void addEllipsoid(ResultSet rs) throws SQLException {
@@ -61,7 +66,7 @@ public class Ellipsoids extends Areas {
         Code code = codep(rs);
         short shape = rs.getShort(9);
         double minor = rs.getDouble(5);
-        UoM<Length> uom = units.find(rs.getInt(6)).asType(Length.class);
+        UoM<Length> uom = units.get(rs.getInt(6)).asType(Length.class);
         if(shape==0) {
             double major = rs.getDouble(7);
             return Ellipsoid.ellipsoid(code, uom, minor, major);
@@ -75,7 +80,7 @@ public class Ellipsoids extends Areas {
     private void addMeridian(ResultSet rs) throws SQLException {
         Code code = codep(rs);
         double lon = rs.getDouble(5);
-        UoM<Angle> uom = units.find(rs.getInt(6)).asType(Angle.class);
+        UoM<Angle> uom = units.get(rs.getInt(6)).asType(Angle.class);
 
         var meridian = new PrimeMeridian(code, lon, uom);
         meridians.add(meridian);
@@ -83,14 +88,14 @@ public class Ellipsoids extends Areas {
 
     private void addDatum(ResultSet rs) throws SQLException {
         Code code = codep(rs);
+        Area area = findArea(rs);
 
-        int j=4;
-        Area area = areas.find(rs.getInt(++j));
+        int j=5;
         Datum.Type type = Datum.Type.valueOf(rs.getString(++j));
         String descr = rs.getString(++j);
         Date epoch = rs.getDate(++j);
-        Ellipsoid ellps = ellipsoids.find(rs.getInt(++j));
-        PrimeMeridian pm = meridians.find(rs.getInt(++j));
+        Ellipsoid ellps = ellipsoids.get(rs.getInt(++j));
+        PrimeMeridian pm = meridians.get(rs.getInt(++j));
         Text scope = text(rs.getString(++j));
 
         var datum = new Datum(code, type, area, ellps, pm, scope, epoch, descr);

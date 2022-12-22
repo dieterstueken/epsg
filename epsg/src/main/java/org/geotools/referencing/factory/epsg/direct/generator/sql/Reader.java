@@ -6,7 +6,12 @@ import org.geotools.referencing.factory.epsg.direct.item.code.Code;
 import org.geotools.referencing.factory.epsg.direct.item.code.Indexed;
 import org.geotools.referencing.factory.epsg.direct.item.code.Text;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +43,9 @@ public class Reader implements AutoCloseable {
     }
 
     protected void load() throws SQLException {
+    }
 
+    protected void finish() throws SQLException {
     }
 
     @Override
@@ -77,6 +84,8 @@ public class Reader implements AutoCloseable {
             while(rs.next()) {
                 processor.process(rs);
             }
+        } catch (Exception e) {
+            throw e;
         }
     }
 
@@ -161,8 +170,9 @@ public class Reader implements AutoCloseable {
 
         String url = System.getProperty("epsg.database.url");
         try(Connection connection = DriverManager.getConnection(url)) {
-            var tables = new Ellipsoids(connection);
+            var tables = new ReferenceSystems(connection);
             tables.load();
+            tables.finish();
 
             System.out.format("Scopes: %d\n", tables.scopes.size());
             System.out.format("Areas:  %d\n", tables.areas.size());
@@ -170,6 +180,8 @@ public class Reader implements AutoCloseable {
             System.out.format("Ellps:  %d\n", tables.ellipsoids.size());
             System.out.format("Primes: %d\n", tables.meridians.size());
             System.out.format("Datums: %d\n", tables.datums.size());
+            System.out.format("Ops:    %d\n", tables.operations.size());
+            System.out.format("CRS:    %d\n", tables.referenceSystems.size());
 
             for (UoM<?> unit : tables.units) {
                 System.out.format("%5d: %s     %s\n", unit.code.code, unit.code.name, unit.unit);

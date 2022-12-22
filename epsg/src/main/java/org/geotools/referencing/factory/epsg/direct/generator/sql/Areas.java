@@ -49,4 +49,7 @@ public class Areas extends UoMs {
         areas.add(area);
     }
 
+    protected Area findArea(ResultSet rs) throws SQLException {
+        return areas.get(rs.getInt(5));
+    }
 }

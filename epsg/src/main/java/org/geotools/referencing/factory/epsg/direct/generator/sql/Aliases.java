@@ -40,7 +40,7 @@ public class Aliases extends Scopes {
     Alias alias(ResultSet rs) throws SQLException {
         var code = code(rs);
         int nsc = rs.getInt(4);
-        Scope scope = scopes.find(nsc);
+        Scope scope = scopes.get(nsc);
         return new Alias(code, scope);
     }
 }

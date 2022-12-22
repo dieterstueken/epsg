@@ -2,7 +2,14 @@ package org.geotools.referencing.factory.epsg.direct.item;
 
 import org.geotools.referencing.factory.epsg.direct.item.code.Indexed;
 
-import java.util.*;
+import java.util.AbstractSet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.RandomAccess;
 
 /**
  * version:     $
@@ -74,6 +81,18 @@ public class IndexedSet<T extends Indexed> extends AbstractSet<T> implements Ran
         int index = indexOf(code);
         return index<0 ? null : items.get(index);
     }
+
+    public T get(int code) {
+        if(code==0)
+            return null;
+
+        T result = find(code);
+        if(result==null)
+            throw new NoSuchElementException("code: " + code);
+
+        return result;
+    }
+
 
     public int indexOf(int code) {
         int low = 0;
