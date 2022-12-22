@@ -1,11 +1,14 @@
-apply plugin: 'java'
+plugins {
+    id 'java-library'
+}
 
 dependencies {
     implementation 'com.google.guava:guava:+'
     implementation 'com.sun.codemodel:codemodel:+'
     implementation 'org.apache.sis.core:sis-referencing:1.2'
-    implementation 'org.apache.sis.non-free:sis-epsg:1.2'
-    implementation 'org.apache.derby:derby:10.16.1.1'
+    runtimeOnly 'org.apache.sis.non-free:sis-epsg:1.2'
+    implementation 'org.apache.derby:derby:+'
+    implementation 'org.apache.derby:derbytools:+'
 
-    implementation libs.jaxb_runtime
+    implementation "$libs.jaxb_runtime"
 }
