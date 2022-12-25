@@ -12,15 +12,15 @@ import java.util.List;
  * modified by: $
  * modified on: $
  */
-public class CoorsdSys extends Item {
+public class CoordSys extends Item {
 
-    public enum Type {vertical, spherical, ellipsoidal, cartesian};
+    public enum Type {vertical, spherical, ellipsoidal, cartesian}
 
     final Type type;
 
     final List<CoordAxis> axis;
 
-    public CoorsdSys(Code code, Type type, List<CoordAxis> axis) {
+    public CoordSys(Code code, Type type, List<CoordAxis> axis) {
         super(code);
         this.type = type;
         this.axis = axis;

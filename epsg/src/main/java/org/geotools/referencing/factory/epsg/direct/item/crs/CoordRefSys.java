@@ -14,13 +14,13 @@ import org.geotools.referencing.factory.epsg.direct.item.code.Code;
 public class CoordRefSys extends BoundItem {
 
     public enum Kind {projected, geographic2D, geographic3D,
-        geocentric, vertical, compound, engineering};
+        geocentric, vertical, compound, engineering}
 
     final Kind type;
 
-    final Short cs;
+    final CoordSys cs;
 
-    public CoordRefSys(Code code, Area bounds, Kind type, Short cs) {
+    public CoordRefSys(Code code, Area bounds, Kind type, CoordSys cs) {
         super(code, bounds);
         this.type = type;
         this.cs = cs;

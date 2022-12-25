@@ -5,7 +5,7 @@ import org.geotools.referencing.factory.epsg.direct.item.UoM;
 import org.geotools.referencing.factory.epsg.direct.item.code.Code;
 import org.geotools.referencing.factory.epsg.direct.item.code.Text;
 import org.geotools.referencing.factory.epsg.direct.item.crs.CoordAxis;
-import org.geotools.referencing.factory.epsg.direct.item.crs.CoorsdSys;
+import org.geotools.referencing.factory.epsg.direct.item.crs.CoordSys;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +30,7 @@ public class CoordSystems extends Datums {
 
     final PreparedStatement pst;
 
-    final Items<CoorsdSys> coordSystems = new Items<>();
+    final Items<CoordSys> coordSystems = new Items<>();
 
     CoordSystems(Connection conn) throws SQLException {
         super(conn);
@@ -55,10 +55,10 @@ public class CoordSystems extends Datums {
         coordSystems.add(readCoorsdSys(rs));
     }
 
-    protected CoorsdSys readCoorsdSys(ResultSet rs) throws SQLException {
+    protected CoordSys readCoorsdSys(ResultSet rs) throws SQLException {
         Code code = codep(rs);
 
-        CoorsdSys.Type type = CoorsdSys.getType(rs.getString(5));
+        CoordSys.Type type = CoordSys.getType(rs.getString(5));
 
         List<CoordAxis> axes = new ArrayList<>(3);
         pst.setInt(1, code.getCode());
@@ -69,7 +69,7 @@ public class CoordSystems extends Datums {
             }
         }
 
-        return new CoorsdSys(code, type, List.copyOf(axes));
+        return new CoordSys(code, type, List.copyOf(axes));
     }
 
     private CoordAxis readAxis(ResultSet rs) throws SQLException {

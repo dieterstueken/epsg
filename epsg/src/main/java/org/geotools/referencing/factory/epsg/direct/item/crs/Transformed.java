@@ -17,7 +17,7 @@ public class Transformed extends Geographic {
 
     final Operation op;
 
-    public Transformed(Code code, Area bounds, Kind kind, Short cs, Datum datum, CoordRefSys src, Operation op) {
+    public Transformed(Code code, Area bounds, Kind kind, CoordSys cs, Datum datum, CoordRefSys src, Operation op) {
         super(code, bounds, kind, cs, datum);
         this.src = src;
         this.op = op;

@@ -3,12 +3,7 @@ package org.geotools.referencing.factory.epsg.direct.generator.sql;
 import org.geotools.referencing.factory.epsg.direct.item.Area;
 import org.geotools.referencing.factory.epsg.direct.item.Items;
 import org.geotools.referencing.factory.epsg.direct.item.code.Code;
-import org.geotools.referencing.factory.epsg.direct.item.crs.Compound;
-import org.geotools.referencing.factory.epsg.direct.item.crs.CoordRefSys;
-import org.geotools.referencing.factory.epsg.direct.item.crs.Geographic;
-import org.geotools.referencing.factory.epsg.direct.item.crs.Operation;
-import org.geotools.referencing.factory.epsg.direct.item.crs.Transformation;
-import org.geotools.referencing.factory.epsg.direct.item.crs.Transformed;
+import org.geotools.referencing.factory.epsg.direct.item.crs.*;
 import org.geotools.referencing.factory.epsg.direct.item.datum.Datum;
 
 import java.sql.Connection;
@@ -99,7 +94,7 @@ public class ReferenceSystems extends CoordSystems {
 
         CoordRefSys.Kind type = CoordRefSys.getKind(rs.getString(6));
 
-        Short cs = rs.getShort(7);
+        CoordSys cs = coordSystems.get(rs.getInt(7));
         Datum datum = datums.get(rs.getInt(8));
         CoordRefSys src = referenceSystems.get(rs.getInt(9));
         Operation op = operations.get(rs.getInt(10));

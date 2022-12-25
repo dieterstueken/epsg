@@ -16,7 +16,7 @@ public class Compound extends CoordRefSys {
 
     final CoordRefSys vert;
 
-    public Compound(Code code, Area bounds, Kind kind, Short cs, CoordRefSys hor, CoordRefSys vert) {
+    public Compound(Code code, Area bounds, Kind kind, CoordSys cs, CoordRefSys hor, CoordRefSys vert) {
         super(code, bounds, kind, cs);
         this.hor = hor;
         this.vert = vert;

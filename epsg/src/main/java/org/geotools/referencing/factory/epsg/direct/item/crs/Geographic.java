@@ -15,7 +15,7 @@ public class Geographic extends CoordRefSys {
 
     final Datum datum;
 
-    public Geographic(Code code, Area bounds, Kind type, Short cs, Datum datum) {
+    public Geographic(Code code, Area bounds, Kind type, CoordSys cs, Datum datum) {
         super(code, bounds, type, cs);
         this.datum = datum;
     }
